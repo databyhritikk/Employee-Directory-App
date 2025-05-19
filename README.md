@@ -71,6 +71,114 @@ The app allows users to **add**, **view**, and **upload profile images** of empl
 
 ### 🔨 Deployment Steps
 
+Deploy EC2 Architecture (Manual or IaC)
+Create the VPC, subnets, security groups.
+
+Launch EC2 with IAM role and install backend.
+
+Deploy frontend to S3.
+
+Configure ALB and Route 53.
+
+bash
+Copy
+Edit
+cd terraform/ec2-architecture/
+terraform init
+terraform apply
+4. Deploy Serverless Architecture
+bash
+Copy
+Edit
+cd terraform/serverless-architecture/
+terraform init
+terraform apply
+OR use AWS SAM/CloudFormation templates in /backend/lambda
+
+🛡 IAM Role Configuration
+Refer to /policy-examples/ for least-privilege IAM policies.
+
+EC2 Instance Profile with S3/DynamoDB access
+
+Lambda Execution Role with:
+
+S3:GetObject, PutObject
+
+DynamoDB:PutItem, Scan
+
+CloudWatch Logs permissions
+
+📁 Code Structure
+bash
+Copy
+Edit
+/frontend           # Static HTML/CSS/JS for S3 hosting
+/backend            # Node.js/Flask API for EC2 OR Lambda handlers
+/terraform          # Infrastructure as Code (EC2 & Serverless)
+/architecture-diagrams
+/policy-examples
+/sample-env-vars
+.gitignore
+LICENSE
+README.md
+🔐 Security Considerations
+✅ IAM Roles follow least privilege principle
+
+✅ Security groups restrict access by port and IP
+
+✅ Data encrypted at rest (S3/DynamoDB) and in transit (HTTPS)
+
+✅ S3 buckets are private with CloudFront public access
+
+💰 Cost Optimization
+Metric	EC2	Serverless
+Idle Cost	High	Low
+Scalability	Manual (ASG)	Auto
+Maintenance	Manual patching	AWS-managed
+Best For	Long-running apps	Event-driven logic
+
+🧹 Cleanup Instructions
+bash
+Copy
+Edit
+cd terraform/ec2-architecture/
+terraform destroy
+
+cd terraform/serverless-architecture/
+terraform destroy
+Manually delete:
+
+S3 buckets (after emptying)
+
+DynamoDB tables
+
+IAM roles
+
+📚 Learning Resources
+AWS EC2 Docs
+
+AWS Lambda Docs
+
+DynamoDB Docs
+
+API Gateway Docs
+
+Serverless on AWS (Coursera)
+
+📄 License
+Apache 2.0 – see LICENSE
+
+🧽 .gitignore
+Includes standard ignores for:
+
+Node.js
+
+Python
+
+AWS SAM/.terraform
+
+.env files
+
 #### 1. Clone the Repository
 
 ```bash
